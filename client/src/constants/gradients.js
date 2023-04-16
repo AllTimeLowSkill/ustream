@@ -1,0 +1,1 @@
+export const BTN_GRADIENT = 'bg-gradient-to-r from-gradient_start to-gradient_end'
