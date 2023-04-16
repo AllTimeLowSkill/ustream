@@ -33,7 +33,9 @@ export class AuthService {
                         firstname: profile.firstname,
                         lastname: profile.lastname,
                         aboutMe: profile.aboutMe,
-                        avatar: profile.avatar
+                        avatar: profile.avatar,
+                        address: profile.address,
+                        date: profile.date
                     },
                     follows
                  }

@@ -67,6 +67,7 @@ export const getProfile = createAsyncThunk('user/getProfile', async (id) => {
 
 export const updateProfile = createAsyncThunk('user/updateProfile', async ({ id, data }) => {
     const response = await axios.put(`http://localhost:3000/api/profile/update/${id}`, data)
+    localStorage.setItem('user', JSON.stringify(response.data))
     return response.data
 })
 

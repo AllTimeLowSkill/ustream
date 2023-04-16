@@ -23,6 +23,7 @@ const Profile = () => {
             profile.lastname? setLastname(profile.lastname) : setLastname('')
             profile.aboutMe? setAboutMe(profile.aboutMe) : setAboutMe('')
             profile.address? setAddress(profile.address) : setAddress('')
+            profile.date? setBirthday(profile.date) : setBirthday('')
         }
     }, [profile])
 
@@ -67,7 +68,7 @@ const Profile = () => {
                         margin: 'my-[24px]'
                     }} />
                     <InputControl value={address} onChange={setAddress} placeholder='Address' sx={{ margin: 'mb-[24px]' }} />
-                    <InputControl onChange={setBirthday} type='date' placeholder='Birth date' />
+                    <InputControl value={birthday} onChange={setBirthday} type='date' placeholder='Birth date' />
                 </div>
             </section>
             <footer className='px-[28px]'>
