@@ -13,11 +13,11 @@ const Category = () => {
     const [categoryStreams, setCategoryStreams] = useState(null)
 
     useEffect(() => {
-        const local = JSON.parse(localStorage.getItem('category'))
+        const local = JSON.parse(sessionStorage.getItem('category'))
         if(!local || id !== local.id) {
             const cat = categories.find(item => item.id === id)
             setCategory(cat)
-            localStorage.setItem('category', JSON.stringify(cat))
+            sessionStorage.setItem('category', JSON.stringify(cat))
         } else {
             setCategory(local)
         }

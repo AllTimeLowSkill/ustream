@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
 import Button from './Button'
 
 const Slider = ({ elements=[] }) => {
+    const navigate = useNavigate()
+
     return (
         <Carousel
             autoPlay={true}
@@ -29,7 +32,7 @@ const Slider = ({ elements=[] }) => {
                                 </p>
                             </main>
                             <footer className=''>
-                                <Button accent={true} title='Watch Now' sx={{ width: 'w-full', shadow: 'shadow shadow-black' }} />
+                                <Button onClick={() => navigate(`/category/${el.id}`)} accent={true} title='Watch Now' sx={{ width: 'w-full', shadow: 'shadow shadow-black' }} />
                             </footer>
                         </section>
                     </div>

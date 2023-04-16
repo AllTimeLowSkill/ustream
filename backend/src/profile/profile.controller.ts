@@ -22,6 +22,7 @@ export class ProfileController {
 
     @Put('/update/:id')
     updateProfile(@Param('id') id: string, @Body() data: any) {
+        console.log(data)
         return this.profileService.updateProfile(id, data)
     }
 }

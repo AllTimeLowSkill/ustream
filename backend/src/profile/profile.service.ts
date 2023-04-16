@@ -43,7 +43,9 @@ export class ProfileService {
         const isUpdated = await this.profileRepository.update({ userId: id }, {
             firstname: data.firstname,
             lastname: data.lastname,
-            aboutMe: data.aboutMe
+            aboutMe: data.aboutMe,
+            address: data.address,
+            date: data.date
         })
 
         if(isUpdated) {

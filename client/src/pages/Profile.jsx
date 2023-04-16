@@ -11,7 +11,9 @@ const Profile = () => {
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [aboutMe, setAboutMe] = useState('')
+    const [address, setAddress] = useState('')
     const [avatar, setAvatar] = useState(null)
+    const [birthday, setBirthday] = useState('')
     const [username, setUsername] = useState(user.username)
     const [email, setEmail] = useState(user.email)
 
@@ -20,6 +22,7 @@ const Profile = () => {
             profile.firstname? setFirstname(profile.firstname) : setFirstname('')
             profile.lastname? setLastname(profile.lastname) : setLastname('')
             profile.aboutMe? setAboutMe(profile.aboutMe) : setAboutMe('')
+            profile.address? setAddress(profile.address) : setAddress('')
         }
     }, [profile])
 
@@ -63,12 +66,12 @@ const Profile = () => {
                     <InputControl value={lastname}  placeholder='Lastname' onChange={setLastname} sx={{ 
                         margin: 'my-[24px]'
                     }} />
-                    <InputControl placeholder='Address' sx={{ margin: 'mb-[24px]' }} />
-                    <InputControl type='date' placeholder='Birth date' />
+                    <InputControl value={address} onChange={setAddress} placeholder='Address' sx={{ margin: 'mb-[24px]' }} />
+                    <InputControl onChange={setBirthday} type='date' placeholder='Birth date' />
                 </div>
             </section>
             <footer className='px-[28px]'>
-                <Button onClick={() => dispach(updateProfile({ id: user.id, data: { firstname, lastname, aboutMe } }))} title='Submit changes' accent={true} />
+                <Button onClick={() => dispach(updateProfile({ id: user.id, data: { firstname, lastname, aboutMe, address, date: birthday } }))} title='Submit changes' accent={true} />
             </footer>
         </div>
     )

@@ -17,6 +17,12 @@ export class Profile {
     @Column({ nullable: true })
     avatar: string
 
+    @Column({ nullable: true })
+    address: string
+
+    @Column({ nullable: true })
+    date: string
+
     @Column('uuid')
     userId: string
 }
