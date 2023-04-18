@@ -52,6 +52,10 @@ export const updateAvatar = createAsyncThunk('user/updateAvatar', async (data) =
         }
     })
 
+    let local = JSON.parse(localStorage.getItem('user'))
+    local.profile = response.data
+    localStorage.setItem('user', JSON.stringify(local))
+
     return response.data
 })
 
@@ -67,7 +71,11 @@ export const getProfile = createAsyncThunk('user/getProfile', async (id) => {
 
 export const updateProfile = createAsyncThunk('user/updateProfile', async ({ id, data }) => {
     const response = await axios.put(`http://localhost:3000/api/profile/update/${id}`, data)
-    localStorage.setItem('user', JSON.stringify(response.data))
+    
+    let local = JSON.parse(localStorage.getItem('user'))
+    local.profile = response.data
+    localStorage.setItem('user', JSON.stringify(local))
+
     return response.data
 })
 

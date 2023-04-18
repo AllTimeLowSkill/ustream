@@ -53,7 +53,8 @@ const nms = new NodeMediaServer(config)
 
 
 nms.on('prePublish', async (id, streamPath, args) => {
-  console.log('[NodeEvent on prePublish]', `id=${id} StreamPath=${streamKey} args=${JSON.stringify(args)}`);
+  const parts = streamPath.split('/')
+  const streamKey = parts[parts.length - 1]
   const response = await axios.get(`http://localhost:3000/api/user/check/${streamKey}`)
   if(!response.data) {
     const session = nms.getSession(id)
@@ -99,13 +100,13 @@ io.on('connection', socket => {
     })
   })
 
-  socket.on('leave-straem', ({ id }) => {
-    socket.leave(id)
-    const viewers = io.of('/').adapter.rooms.get(id).size
-    io.to(id).emit('leaved-stream', {
-      viewers
-    })
-  })
+  // socket.on('leave-straem', ({ id }) => {
+  //   socket.leave(id)
+  //   const viewers = io.of('/').adapter.rooms.get(id).size
+  //   io.to(id).emit('leaved-stream', {
+  //     viewers
+  //   })
+  // })
 
   socket.on('message', ({ id, message, username }) => {
     io.to(id).emit('on-message', {

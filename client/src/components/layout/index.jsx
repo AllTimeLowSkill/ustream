@@ -1,30 +1,51 @@
 import { useState } from "react"
-import Header from "./components/Header"
-import Sidebar from "./components/Sidebar"
-import { BTN_GRADIENT } from "../../constants/gradients"
-import Modal from "../Modal"
+import Header from "../header"
+import Modal from "./components/Modal"
+import LoginForm from "../login"
+import { useDispatch } from "react-redux"
+import { signIn, signUp } from "../../store/slices/userSlice"
+import SignUp from "../signup"
+import Sidebar from "../sidebar"
 
 const Layout = ({ children }) => {
-    const [toggleSidebar, setToggleSidebar] = useState(true)
-    const [isModal, setIsModal] = useState(false)
-    const [modalType, setModalType] = useState(0)
+    const dispath = useDispatch()
 
-    const toggleModal = (type) => {
-        setIsModal(!isModal)
-        setModalType(type)
+    const [isModal, setIsModal] = useState(false)
+    const [typeForm, setTypeForm] = useState(null)
+
+    const openForm = (type) => {
+        setIsModal(true)
+        setTypeForm(type)
+    }
+
+    const handleLogin = (email, password) => {
+        dispath(signIn({ email, password }))
+        setIsModal(false)
+    }
+
+    const handleSignUp = (email, password, username, avatar, repeatPassword) => {
+        if(repeatPassword === password) {
+            dispath(signUp({ email, password, username, avatar }))
+            setIsModal(false)
+        }
     }
 
     return (
-        <div className="w-[100wv] relative">
-            { isModal? <Modal toggleModel={toggleModal} type={modalType} /> : null }
-            <Header toggle={toggleSidebar} setToggle={setToggleSidebar} isModal={toggleModal} modal={isModal} />
-            <div className="flex">
-                <Sidebar toggle={toggleSidebar} />
-                <div className={`w-full bg-gray-700 min-h-[100vh] ${BTN_GRADIENT}`}>
+        <>
+            { 
+                isModal? 
+                <Modal toggle={setIsModal}>
+                    { typeForm === 0? <LoginForm handleSubmit={handleLogin} /> : <SignUp handleSubmit={handleSignUp} /> }
+                </Modal> : null 
+            }
+            <Header toggle={openForm} />
+            <div className="flex min-h-[100vh] bg-gradient-to-tr from-[#3C096C] to-[#5A189A]">
+                <Sidebar />
+                <div className="w-full">
                     {children}
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

@@ -8,7 +8,7 @@ const initialState = {
 
 export const getCategories = createAsyncThunk('category/getCategories', async () => {
     const response = await axios.get('http://localhost:3000/api/category')
-    localStorage.setItem('categories', JSON.stringify(response.data))
+    sessionStorage.setItem('categories', JSON.stringify(response.data))
     return response.data
 })
 

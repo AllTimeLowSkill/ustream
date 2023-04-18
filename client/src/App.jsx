@@ -1,16 +1,15 @@
 import { Route, Routes } from "react-router-dom";
-import Main from "./pages/Main";
-import Page from "./pages/Page";
-import Profile from "./pages/Profile";
-import StreamPage from "./pages/Stream";
-import Studio from "./pages/Studio";
+import Main from './pages/main'
+
 import { useEffect } from "react";
 import { socket } from "./context/WebSocketContext";
 import { useDispatch } from "react-redux";
 import { addNewStream, deleteStream } from "./store/slices/streamsSlice"
-import { getCategories, setCategories } from "./store/slices/categorySlice";
 import { setUser } from "./store/slices/userSlice";
-import Category from "./pages/Category";
+import Profile from "./pages/profile";
+import Category from "./pages/category";
+import Stream from "./pages/stream";
+
 
 function App() {
   const dispath = useDispatch()
@@ -20,14 +19,6 @@ function App() {
     if(local) {
       dispath(setUser(JSON.parse(local)))
     }
-
-    const storageCategories = localStorage.getItem('categories')
-    if(!storageCategories) {
-      dispath(getCategories())
-    } else {
-      dispath(setCategories(JSON.parse(storageCategories)))
-    }
-
   }, [])
 
   useEffect(() => {
@@ -48,11 +39,9 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={ <Main /> } />
-      <Route path="/page/:id" element={ <Page /> } />
       <Route path="/profile/:id" element={ <Profile /> } />
-      <Route path="/stream/:id" element={ <StreamPage /> } />
-      <Route path="/studio/:id" element={ <Studio /> } />
       <Route path="/category/:id" element={ <Category /> } />
+      <Route path="/stream/:id" element={ <Stream /> } />
     </Routes>
   );
 }
