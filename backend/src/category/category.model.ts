@@ -1,16 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Category {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+  @PrimaryGeneratedColumn('uuid')
+  id: string
 
-    @Column()
-    title: string
+  @Column()
+  title: string
 
-    @Column()
-    image: string
+  @Column()
+  image: string
 
-    @Column()
-    desc: string
+  @Column()
+  desc: string
 }

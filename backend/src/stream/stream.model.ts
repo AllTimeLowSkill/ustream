@@ -1,16 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Stream {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+  @PrimaryGeneratedColumn('uuid')
+  id: string
 
-    @Column()
-    streamId: string
+  @Column()
+  streamId: string
 
-    @Column('uuid')
-    streamKey: string
+  @Column('uuid')
+  streamKey: string
 
-    @Column()
-    username: string
+  @Column()
+  username: string
 }

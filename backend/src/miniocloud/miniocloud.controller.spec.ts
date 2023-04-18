@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { MiniocloudController } from './miniocloud.controller';
+import { Test, TestingModule } from '@nestjs/testing'
+import { MiniocloudController } from './miniocloud.controller'
 
 describe('MiniocloudController', () => {
-  let controller: MiniocloudController;
+  let controller: MiniocloudController
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MiniocloudController],
-    }).compile();
+    }).compile()
 
-    controller = module.get<MiniocloudController>(MiniocloudController);
-  });
+    controller = module.get<MiniocloudController>(MiniocloudController)
+  })
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-});
+    expect(controller).toBeDefined()
+  })
+})

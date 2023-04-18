@@ -1,23 +1,23 @@
-import { Follow } from "src/follow/follow.model";
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Follow } from 'src/follow/follow.model'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+  @PrimaryGeneratedColumn('uuid')
+  id: string
 
-    @Column()
-    username: string
+  @Column()
+  username: string
 
-    @Column()
-    email: string
+  @Column()
+  email: string
 
-    @Column()
-    password: string
+  @Column()
+  password: string
 
-    @Column()
-    streamKey: string
+  @Column()
+  streamKey: string
 
-    @OneToMany(() => Follow, follow => follow.user)
-    follows: Follow[]
+  @OneToMany(() => Follow, (follow) => follow.user)
+  follows: Follow[]
 }

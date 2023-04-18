@@ -1,29 +1,27 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { StreamService } from './stream.service';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
+import { StreamService } from './stream.service'
 
 @Controller('stream')
 export class StreamController {
-    constructor(
-        private readonly streamService: StreamService
-    ) {}
-    
-    @Get('/')
-    getStreams() {
-        return this.streamService.getStreams()
-    }
+  constructor(private readonly streamService: StreamService) {}
 
-    @Post('/create')
-    createStream(@Body() data: any) {
-        return this.streamService.createStreamData(data)
-    }
+  @Get('/')
+  getStreams() {
+    return this.streamService.getStreams()
+  }
 
-    @Put('/update/:id')
-    updateStreamCategory(@Param('id') id: string, @Body() data: any) {
-        return this.streamService.updateStreamCategory(data.id, data.streamKey)
-    }
+  @Post('/create')
+  createStream(@Body() data: any) {
+    return this.streamService.createStreamData(data)
+  }
 
-    @Delete('/:id')
-    deleteStream(@Param('id') id: string) {
-        return this.streamService.deleteStreamData(id)
-    }
+  @Put('/update/:id')
+  updateStreamCategory(@Param('id') id: string, @Body() data: any) {
+    return this.streamService.updateStreamCategory(data.id, data.streamKey)
+  }
+
+  @Delete('/:id')
+  deleteStream(@Param('id') id: string) {
+    return this.streamService.deleteStreamData(id)
+  }
 }
