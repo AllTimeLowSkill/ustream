@@ -1,5 +1,7 @@
 # compiled output
 /node_modules
+/media
+/thumbnails
 
 # Logs
 logs
