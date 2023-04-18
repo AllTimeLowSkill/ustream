@@ -36,7 +36,7 @@ const StreamChat = ({ id }) => {
             <main className="overflow-y-auto h-full max-h-[560px]">
                 {
                     chat.map((msg, idx) => (
-                        <div key={idx}>
+                        <div key={idx} className="break-all">
                             <span className="font-semibold text-purple-600">{ msg.username }: </span>
                             <span className="text-white">{ msg.msg }</span>
                         </div>

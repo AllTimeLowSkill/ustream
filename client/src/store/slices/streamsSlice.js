@@ -9,7 +9,7 @@ const initialState = {
 
 export const getStreams = createAsyncThunk('streams/getStreams', async () => {
     const response = await axios.get('http://localhost:3000/api/stream')
-    const session = sessionStorage.setItem('streams', JSON.stringify(response.data))
+    sessionStorage.setItem('streams', JSON.stringify(response.data))
     return response.data
 })
 

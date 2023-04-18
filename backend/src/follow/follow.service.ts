@@ -16,7 +16,8 @@ export class FollowService {
     createFollows = async (userId: string, followId: string) => {
         const user = await this.userService.getUser(userId)
         const follow = await this.userService.getUserByStreamKey(followId)
-        await this.followRepository.save({ user, follow: follow.id })
+        await this.followRepository.save({ user: user, follow: follow.id})
+
         const { username } = await this.userService.getUser(follow.id)
         const { avatar } = await this.profileService.getProfile(follow.id)
         return {
