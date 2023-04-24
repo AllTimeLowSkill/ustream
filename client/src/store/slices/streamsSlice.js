@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { StreamService } from "../../api/stream.service";
 
 const initialState = {
   streams: [],
@@ -7,11 +7,9 @@ const initialState = {
   isLoading: false,
 };
 
-export const getStreams = createAsyncThunk("streams/getStreams", async () => {
-  const response = await axios.get("http://localhost:3000/api/stream");
-  sessionStorage.setItem("streams", JSON.stringify(response.data));
-  return response.data;
-});
+export const getStreams = createAsyncThunk("streams/getStreams", async () =>
+  StreamService.getStreams()
+);
 
 const streamsSlice = createSlice({
   name: "streams",

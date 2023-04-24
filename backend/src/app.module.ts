@@ -11,24 +11,30 @@ import { FollowModule } from './follow/follow.module'
 import { CategoryModule } from './category/category.module'
 import { MinioModule } from 'nestjs-minio-client'
 import { MiniocloudModule } from './miniocloud/miniocloud.module'
+import { ConfigModule } from '@nestjs/config'
+import * as path from 'path'
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: path.join(__dirname, '..', '.env'),
+    }),
     MinioModule.register({
       isGlobal: true,
       endPoint: 'localhost',
       port: 9000,
       useSSL: false,
-      accessKey: 'W9UqsNXHt1Ifzop4',
-      secretKey: 'tkIAObiH7S5PytgFUBsCCxbfJ6QX3sq3',
+      accessKey: process.env.MINIO_ACCESS,
+      secretKey: process.env.MINIO_SERCRET,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'root',
-      database: 'hate',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB,
       entities: [User],
       synchronize: true,
       autoLoadEntities: true,

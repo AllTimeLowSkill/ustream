@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { AuthService } from "../../api/auth.service";
+import { ProfileService } from "../../api/profile.service";
+import { FollowService } from "../../api/follow.service";
 
 const initialState = {
   user: null,
@@ -8,97 +10,30 @@ const initialState = {
   isLoading: false,
 };
 
-export const signIn = createAsyncThunk("user/signIn", async (data) => {
-  const local = localStorage.getItem("user");
-  if (!local) {
-    const response = await axios.post(
-      "http://localhost:3000/api/auth/signin",
-      data
-    );
-    localStorage.setItem("user", JSON.stringify(response.data));
-    return response.data;
-  }
-  return JSON.parse(local);
-});
+export const signIn = createAsyncThunk("user/signIn", async (data) =>
+  AuthService.signIn(data)
+);
 
-export const signUp = createAsyncThunk("user/signUp", async (data) => {
-  let formData = new FormData();
-  const { avatar } = data;
-  formData.append("username", data.username);
-  formData.append("email", data.email);
-  formData.append("password", data.password);
-  formData.append("avatar", avatar[0]);
-
-  const response = await axios.post(
-    "http://localhost:3000/api/auth/signup",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
-  if (localStorage.getItem("user")) {
-    localStorage.removeItem("user");
-  }
-
-  localStorage.setItem("user", JSON.stringify(response.data));
-
-  return response.data;
-});
+export const signUp = createAsyncThunk("user/signUp", async (data) =>
+  AuthService.signUp(data)
+);
 
 export const updateAvatar = createAsyncThunk(
   "user/updateAvatar",
-  async (data) => {
-    let formData = new FormData();
-    const { avatar } = data;
-    formData.append("avatar", avatar[0]);
-
-    const response = await axios.put(
-      `http://localhost:3000/api/profile/update/avatar/${data.id}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-
-    let local = JSON.parse(localStorage.getItem("user"));
-    local.profile = response.data;
-    localStorage.setItem("user", JSON.stringify(local));
-
-    return response.data;
-  }
+  async (data) => ProfileService.updateAvatar(data)
 );
 
-export const addFollow = createAsyncThunk("user/addFollow", async (data) => {
-  const response = await axios.post(
-    "http://localhost:3000/api/follow/create",
-    data
-  );
-  return response.data;
-});
+export const addFollow = createAsyncThunk("user/addFollow", async (data) =>
+  FollowService.addFollow(data)
+);
 
-export const getProfile = createAsyncThunk("user/getProfile", async (id) => {
-  const response = await axios.get(`http://localhost:3000/api/profile/${id}`);
-  return response.data;
-});
+export const getProfile = createAsyncThunk("user/getProfile", async ({ id }) =>
+  ProfileService.getProfile(id)
+);
 
 export const updateProfile = createAsyncThunk(
   "user/updateProfile",
-  async ({ id, data }) => {
-    const response = await axios.put(
-      `http://localhost:3000/api/profile/update/${id}`,
-      data
-    );
-
-    let local = JSON.parse(localStorage.getItem("user"));
-    local.profile = response.data;
-    localStorage.setItem("user", JSON.stringify(local));
-
-    return response.data;
-  }
+  async ({ id, data }) => ProfileService.updateProfile(id, data)
 );
 
 const userSlice = createSlice({

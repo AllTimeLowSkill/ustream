@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { CategoryService } from "../../api/category.service";
 
 const initialState = {
   categories: null,
@@ -8,22 +8,12 @@ const initialState = {
 
 export const getCategories = createAsyncThunk(
   "category/getCategories",
-  async () => {
-    const response = await axios.get("http://localhost:3000/api/category");
-    sessionStorage.setItem("categories", JSON.stringify(response.data));
-    return response.data;
-  }
+  async () => CategoryService.getCategories()
 );
 
 export const updateCategory = createAsyncThunk(
   "category/updateStreamCategory",
-  async (data) => {
-    const response = await axios.put(
-      `http://localhost:3000/api/stream/update/${data.streamKey}`,
-      data
-    );
-    return response.data;
-  }
+  async (data) => CategoryService.updateCategory(data)
 );
 
 const categorySlice = createSlice({

@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const { default: axios } = require("axios");
@@ -25,13 +26,13 @@ const config = {
     ping_timeout: 60,
   },
   http: {
-    port: 8000,
+    port: process.env.RTMP_PORT,
     mediaroot: "./media",
     api: true,
     allow_origin: "*",
   },
   trans: {
-    ffmpeg: "C:/projects/hate/rtmp-server/ffmpeg/ffmpeg.exe",
+    ffmpeg: process.env.FFMPEG_PATH,
     tasks: [
       {
         app: "live",
@@ -50,7 +51,7 @@ nms.on("prePublish", async (id, streamPath, args) => {
   const parts = streamPath.split("/");
   const streamKey = parts[parts.length - 1];
   const response = await axios.get(
-    `http://localhost:3000/api/user/check/${streamKey}`
+    `${process.env.BACKEND_URL}/api/user/check/${streamKey}`
   );
   if (!response.data) {
     const session = nms.getSession(id);
@@ -63,13 +64,16 @@ nms.on("postPublish", async (id, streamPath, args) => {
   const streamKey = parts[parts.length - 1];
   io.of("/").adapter.rooms.set(streamKey, new Set());
   const { data } = await axios.get(
-    `http://localhost:3000/api/user/${streamKey}`
+    `${process.env.BACKEND_URL}/api/user/${streamKey}`
   );
-  const stream = await axios.post("http://localhost:3000/api/stream/create", {
-    streamId: id,
-    streamKey,
-    username: data.username,
-  });
+  const stream = await axios.post(
+    `${process.env.BACKEND_URL}/api/stream/create`,
+    {
+      streamId: id,
+      streamKey,
+      username: data.username,
+    }
+  );
 
   console.log(io.of("/").adapter.rooms);
   generateStreamThumbnails(streamKey);
@@ -83,7 +87,9 @@ nms.on("doneConnect", async (id, args) => {
     "[NodeEvent on doneConnect]",
     `id=${id} args=${JSON.stringify(args)}`
   );
-  const { data } = await axios.delete(`http://localhost:3000/api/stream/${id}`);
+  const { data } = await axios.delete(
+    `${process.env.BACKEND_URL}/api/stream/${id}`
+  );
   io.emit("delete-stream", {
     streams: data,
   });
@@ -123,8 +129,8 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(8080, () => {
-  console.log(`Server has been started on port: 8080`);
+server.listen(process.env.APP_PORT, () => {
+  console.log(`Server has been started on port: ${process.env.APP_PORT}`);
 });
 
 nms.run();
