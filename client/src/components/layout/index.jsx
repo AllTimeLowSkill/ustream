@@ -18,16 +18,17 @@ const Layout = ({ children }) => {
     setTypeForm(type);
   };
 
-  const handleLogin = (email, password) => {
+  const handleLogin = ({ email, password }) => {
     dispath(signIn({ email, password }));
     setIsModal(false);
   };
 
-  const handleSignUp = (email, password, username, avatar, repeatPassword) => {
-    if (repeatPassword === password) {
+  const handleSignUp = ({ email, password, username, avatar, rePassword }) => {
+    if (rePassword === password) {
       dispath(signUp({ email, password, username, avatar }));
       setIsModal(false);
     }
+    console.log(password, rePassword);
   };
 
   return (

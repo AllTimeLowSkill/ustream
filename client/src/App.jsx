@@ -3,7 +3,7 @@ import Main from "./pages/main";
 
 import { useEffect } from "react";
 import { socket } from "./context/WebSocketContext";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addNewStream, deleteStream } from "./store/slices/streamsSlice";
 import { setUser } from "./store/slices/userSlice";
 import Profile from "./pages/profile";
@@ -11,6 +11,7 @@ import Category from "./pages/category";
 import Stream from "./pages/stream";
 
 function App() {
+  const { user } = useSelector((state) => state.user);
   const dispath = useDispatch();
 
   useEffect(() => {
@@ -23,6 +24,12 @@ function App() {
   useEffect(() => {
     socket.on("new-stream", ({ stream }) => {
       dispath(addNewStream(stream));
+      if (user.streamKey === stream.streamId) {
+        console.log(user);
+        socket.emit("add-owner", {
+          id: stream.streamId,
+        });
+      }
     });
 
     socket.on("delete-stream", ({ streams }) => {
@@ -33,7 +40,7 @@ function App() {
       socket.off("new-stream");
       socket.off("delete-stream");
     };
-  }, []);
+  }, [user]);
 
   return (
     <Routes>

@@ -70,6 +70,7 @@ nms.on("postPublish", async (id, streamPath, args) => {
     streamKey,
     username: data.username,
   });
+
   console.log(io.of("/").adapter.rooms);
   generateStreamThumbnails(streamKey);
   io.emit("new-stream", {
@@ -89,6 +90,11 @@ nms.on("doneConnect", async (id, args) => {
 });
 
 io.on("connection", (socket) => {
+  socket.on("add-owner", ({ id }) => {
+    socket.join(id);
+    console.log("Room SIZE", io.of("/").adapter.rooms.get(id).size);
+  });
+
   socket.on("join-stream", ({ id }) => {
     socket.join(id);
     console.log(io.of("/").adapter.rooms.get(id).size);
@@ -101,13 +107,13 @@ io.on("connection", (socket) => {
     });
   });
 
-  // socket.on('leave-straem', ({ id }) => {
-  //   socket.leave(id)
-  //   const viewers = io.of('/').adapter.rooms.get(id).size
-  //   io.to(id).emit('leaved-stream', {
-  //     viewers
-  //   })
-  // })
+  socket.on("leave-straem", ({ id }) => {
+    socket.leave(id);
+    const viewers = io.of("/").adapter.rooms.get(id).size;
+    io.to(id).emit("leaved-stream", {
+      viewers,
+    });
+  });
 
   socket.on("message", ({ id, message, username }) => {
     io.to(id).emit("on-message", {

@@ -106,6 +106,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action) {
+      console.log(action.payload.user);
       state.user = action.payload.user;
       state.profile = action.payload.profile;
       state.follows = action.payload.follows;
