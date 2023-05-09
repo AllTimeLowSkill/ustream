@@ -12,6 +12,7 @@ import { CategoryModule } from './category/category.module'
 import { MinioModule } from 'nestjs-minio-client'
 import { MiniocloudModule } from './miniocloud/miniocloud.module'
 import { ConfigModule } from '@nestjs/config'
+import { PostModule } from './post/post.module';
 import * as path from 'path'
 
 @Module({
@@ -46,6 +47,7 @@ import * as path from 'path'
     FollowModule,
     CategoryModule,
     MiniocloudModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],

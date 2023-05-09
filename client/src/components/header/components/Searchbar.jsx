@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InputControl from "../../input";
+import { Link } from "react-router-dom";
 
 const Searchbar = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -30,9 +31,11 @@ const Searchbar = () => {
         }`}
       >
         {users.map((user, idx) => (
-          <div key={user.id} className={`${idx !== 0 ? "mt-[14px]" : ""}`}>
-            <span className="text-white text-md">{user.username}</span>
-          </div>
+          <Link to={`/page/${user.id}`} key={user.id}>
+            <div className={`${idx !== 0 ? "mt-[14px]" : ""}`}>
+              <span className="text-white text-md">{user.username}</span>
+            </div>
+          </Link>
         ))}
       </section>
     </section>

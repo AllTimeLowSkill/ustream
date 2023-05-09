@@ -1,12 +1,14 @@
 import { Controller, Get, Param, Post, Body, Put } from '@nestjs/common'
 import { UserService } from './user.service'
 import { ProfileService } from 'src/profile/profile.service'
+import { PostService } from 'src/post/post.service'
 
 @Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly profileService: ProfileService,
+    private readonly postService: PostService,
   ) {}
 
   @Get('/:streamkey')
@@ -18,6 +20,21 @@ export class UserController {
     return {
       avatar,
       username,
+    }
+  }
+
+  @Get('/info/:id')
+  async getUser(@Param('id') id: string) {
+    const user = await this.userService.getUser(id)
+    const profile = await this.profileService.getProfile(id)
+    const posts = await this.postService.getPosts(id)
+
+    return {
+      username: user.username,
+      firstname: profile.firstname,
+      lastname: profile.lastname,
+      avatar: profile.avatar,
+      posts,
     }
   }
 

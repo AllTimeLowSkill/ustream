@@ -31,3 +31,14 @@ export const SIGNUP_DATA = {
     type: "file",
   },
 };
+
+export const ADD_POST = {
+  title: {
+    value: "",
+    type: "text",
+  },
+  content: {
+    value: "",
+    type: "text",
+  },
+};

@@ -7,7 +7,7 @@ export const NAVIGATE = [
   {
     title: "Channel",
     icon: Channel,
-    path: "",
+    path: "/page",
   },
   {
     title: "Studio",

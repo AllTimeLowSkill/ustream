@@ -9,6 +9,7 @@ import { setUser } from "./store/slices/userSlice";
 import Profile from "./pages/profile";
 import Category from "./pages/category";
 import Stream from "./pages/stream";
+import Page from "./pages/page";
 
 function App() {
   const { user } = useSelector((state) => state.user);
@@ -48,6 +49,7 @@ function App() {
       <Route path="/profile/:id" element={<Profile />} />
       <Route path="/category/:id" element={<Category />} />
       <Route path="/stream/:id" element={<Stream />} />
+      <Route path="/page/:id" element={<Page />} />
     </Routes>
   );
 }
