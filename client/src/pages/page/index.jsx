@@ -19,6 +19,7 @@ const Page = () => {
     avatar: "",
     firstname: "",
     lastname: "",
+    followers: 0,
     posts: [],
     username: "",
   });
@@ -62,7 +63,7 @@ const Page = () => {
               {userData.username}
             </span>
             <p className="text-white text-base mt-[12px]">
-              {userData.firstname} {userData.lastname}
+              followers: {userData.followers}
             </p>
           </section>
         </header>

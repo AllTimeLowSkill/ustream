@@ -2,6 +2,7 @@ import { Controller, Get, Param, Post, Body, Put } from '@nestjs/common'
 import { UserService } from './user.service'
 import { ProfileService } from 'src/profile/profile.service'
 import { PostService } from 'src/post/post.service'
+import { FollowService } from 'src/follow/follow.service'
 
 @Controller('user')
 export class UserController {
@@ -9,6 +10,7 @@ export class UserController {
     private readonly userService: UserService,
     private readonly profileService: ProfileService,
     private readonly postService: PostService,
+    private readonly followService: FollowService,
   ) {}
 
   @Get('/:streamkey')
@@ -28,12 +30,14 @@ export class UserController {
     const user = await this.userService.getUser(id)
     const profile = await this.profileService.getProfile(id)
     const posts = await this.postService.getPosts(id)
+    const followers = await this.followService.getFollowsCounter(id)
 
     return {
       username: user.username,
       firstname: profile.firstname,
       lastname: profile.lastname,
       avatar: profile.avatar,
+      followers,
       posts,
     }
   }

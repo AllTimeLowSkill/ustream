@@ -27,6 +27,10 @@ export class FollowService {
     }
   }
 
+  getFollowsCounter = async (id: string) => {
+    return await this.followRepository.countBy({ follow: id })
+  }
+
   getFollows = async (id: string) => {
     const follow = await this.followRepository.find({
       where: {
