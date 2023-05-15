@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { User } from './user.model'
@@ -74,6 +74,10 @@ export class UserService {
         },
       })
     }
+  }
+
+  deleteUser = async (id: string) => {
+    return await this.userRepository.delete(id)
   }
 
   findUsers = async (username: string) => {

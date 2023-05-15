@@ -12,7 +12,7 @@ export const NAVIGATE = [
   {
     title: "Studio",
     icon: Studio,
-    path: "",
+    path: "/studio",
   },
   {
     title: "Community",

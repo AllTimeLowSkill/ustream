@@ -31,7 +31,7 @@ const StreamChat = ({ id }) => {
   };
 
   return (
-    <section className="flex flex-col justify-between px-[18px] rounded-[10px] bg-[#240046]">
+    <section className="flex flex-col justify-between h-[720px] px-[18px] rounded-[10px] bg-[#240046]">
       <span className="text-base text-white font-semibold inline-block w-full text-center py-[18px] border-b-2 border-solid border-[#E0AAFFB2]">
         STREAM CHAT
       </span>

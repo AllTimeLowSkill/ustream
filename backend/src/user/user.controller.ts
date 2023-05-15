@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, Put } from '@nestjs/common'
+import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common'
 import { UserService } from './user.service'
 import { ProfileService } from 'src/profile/profile.service'
 import { PostService } from 'src/post/post.service'
@@ -50,6 +50,11 @@ export class UserController {
   @Put('/update/:id')
   updateUser(@Param('id') id: string, @Body() data: any) {
     return this.userService.updateUser(id, data)
+  }
+
+  @Delete('/delete/:id')
+  deleteUser(@Param('id') id: string) {
+    return this.userService.deleteUser(id)
   }
 
   @Post('/find')

@@ -16,7 +16,7 @@ const Stream = () => {
   }, [id]);
 
   return (
-    <section className="px-[28px] py-[48px] flex">
+    <main className="px-[28px] py-[48px] flex">
       <section className="mr-[18px]">
         <Player streamKey={id} />
         <StreamInfo
@@ -27,7 +27,7 @@ const Stream = () => {
         />
       </section>
       <StreamChat id={id} />
-    </section>
+    </main>
   );
 };
 

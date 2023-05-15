@@ -10,6 +10,7 @@ import Profile from "./pages/profile";
 import Category from "./pages/category";
 import Stream from "./pages/stream";
 import Page from "./pages/page";
+import Studio from "./pages/studio";
 
 function App() {
   const { user } = useSelector((state) => state.user);
@@ -50,6 +51,7 @@ function App() {
       <Route path="/category/:id" element={<Category />} />
       <Route path="/stream/:id" element={<Stream />} />
       <Route path="/page/:id" element={<Page />} />
+      <Route path="/studio/:id" element={<Studio />} />
     </Routes>
   );
 }
